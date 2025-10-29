@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Eu te amo, Maiara ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-black: #050505; --red-1: #ef4444; --red-2: #b91c1c; --soft-white: #f8f8f8; }
+    *{box-sizing:border-box;}
+    html,body{height:100%;margin:0;padding:0;}
+    body{background: radial-gradient(circle at top, #0a0a0a 0%, #000 80%); color: var(--soft-white); font-family: 'Inter', sans-serif; overflow:hidden;}
+    .stage {position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+    h1.title {font-family: 'Playfair Display', serif; font-weight:700; font-size:clamp(22px,4vw,42px); color:var(--red-1); margin:0; text-shadow:0 0 20px rgba(239,68,68,0.5);}
+    p.subtitle {font-size:14px; color:rgba(255,255,255,0.8); margin:8px 0 16px;}
+    .heart {position:absolute;width:28px;height:28px;background:var(--red-1);transform:rotate(-45deg);left:50%;top:50%;margin:-10px 0 0 -10px;box-shadow:0 0 25px rgba(239,68,68,0.4);animation:floatUp 8s linear infinite;}
+    .heart:before,.heart:after {content:"";position:absolute;width:28px;height:28px;background:var(--red-1);border-radius:50%;}
+    .heart:before { top:-14px; left:0; }
+    .heart:after { top:0; left:14px; }
+    @keyframes floatUp {0% {transform: translateY(0) scale(0.8) rotate(-45deg); opacity:0;}10% {opacity:1;}100% {transform: translateY(-110vh) scale(1.2) rotate(-45deg); opacity:0;}}
+    .msg {position:absolute;background:linear-gradient(180deg, rgba(239,68,68,0.9), rgba(185,28,28,0.85)); padding:10px 16px; border-radius:20px; font-weight:600; font-size:14px; color:white; box-shadow:0 6px 20px rgba(0,0,0,0.5); opacity:0; transform:translateY(0); will-change:transform,opacity;}
+    .overlay {position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.6); backdrop-filter:blur(6px); flex-direction:column; opacity:0; transition:opacity 2s ease-in-out;}
+    .overlay.show { opacity:1; }
+    .big-heart {width:160px; height:160px; background:radial-gradient(circle at 30% 30%, #ff6666, #b91c1c); transform:rotate(-45deg); position:relative; margin-bottom:20px; animation:pulse 2s infinite; box-shadow:0 0 50px rgba(239,68,68,0.5);}
+    .big-heart:before,.big-heart:after {content:""; position:absolute; width:160px; height:160px; background:radial-gradient(circle at 30% 30%, #ff6666, #b91c1c); border-radius:50%;}
+    .big-heart:before { top:-80px; left:0; }
+    .big-heart:after { top:0; left:80px; }
+    @keyframes pulse {0%,100% { transform:scale(1) rotate(-45deg); }50% { transform:scale(1.05) rotate(-45deg); }}
+    .big-text {font-family:'Playfair Display', serif; font-size:24px; text-align:center; color:white; text-shadow:0 0 20px rgba(239,68,68,0.8);}
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <h1 class="title">Para Maiara</h1>
+    <p class="subtitle">Com todo o amor do mundo ❤️</p>
+    <div id="fx" style="position:absolute;inset:0;pointer-events:none"></div>
+    <div class="overlay" id="overlay">
+      <div class="big-heart"></div>
+      <div class="big-text">Eu te amo, meu amor Maiara ❤️</div>
+    </div>
+  </div>
+  <script>
+    const fx = document.getElementById('fx');
+    const overlay = document.getElementById('overlay');
+    const messages = ["Você é o meu melhor destino ❤️","A cada batida do meu coração, penso em você 💓","Te amo com todas as minhas forças 💘","Seu sorriso é meu amanhecer 🌅","Nada é mais bonito que o teu olhar ✨","Meu coração é completamente seu 💞","Maiara, minha vida é mais doce com você 🍯","Você é meu hoje e todo o meu amanhã 💍","Te quero pra sempre, meu amor ❤️","Você é o sonho que eu nunca quero acordar 💖","Meu amor por você cresce todos os dias 🌹","Só você faz meu mundo ter cor 💋"];
+    function spawnHeart() { const heart = document.createElement('div'); heart.className = 'heart'; const size = 10 + Math.random()*25; heart.style.width = heart.style.height = size + 'px'; heart.style.left = Math.random()*100 + '%'; heart.style.animationDuration = (6 + Math.random()*6) + 's'; fx.appendChild(heart); setTimeout(()=>heart.remove(), 8000); }
+    function spawnMessage() { const msg = document.createElement('div'); msg.className = 'msg'; msg.textContent = messages[Math.floor(Math.random()*messages.length)]; msg.style.left = Math.random()*80 + '%'; msg.style.bottom = '-40px'; fx.appendChild(msg); const duration = 12000 + Math.random()*4000; msg.style.transition = `transform ${duration}ms ease-in, opacity ${duration}ms ease-in-out`; requestAnimationFrame(()=>{ msg.style.opacity = 1; msg.style.transform = `translateY(-90vh)`; }); setTimeout(()=>msg.remove(), duration); }
+    setInterval(spawnHeart, 400);
+    setInterval(spawnMessage, 3000);
+    setTimeout(()=>{ overlay.classList.add('show'); }, 20000);
+  </script>
+</body>
+</html>
